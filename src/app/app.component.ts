@@ -46,6 +46,43 @@ export class AppComponent implements OnInit {
     return result;
   });
 
+  // Memoization is good for recursive functions
+  // fibonacci(5) = fibonacci(4) + fibonacci(3);
+  // fibonacci(5) = fibonacci(3) + fibonacci(2) + fibonacci(2) + fibonacci(1);
+  // fibonacci(5) = fibonacci(2) + fibonacci(1) + fibonacci(2) + fibonacci(2) + fibonacci(1);
+  // We end up calling the function with the same input many times
+  // So we just store the result for the next time we want it.
+
+  fibonacci = (n) => {
+    // if n is equal to 1, return the first term 1
+    if (n == 1) {
+      return 1;
+    }
+    // if n is equal 2, return the second term 1
+    else if (n == 2) {
+      return 1;
+    }
+
+    // else n is greater than two, return the sum of the previous two terms
+    else 
+      return this.fibonacci(n - 1) + this.fibonacci(n - 2);
+  };
+
+  memoizedFibonacci = this.memoize((n) => {
+    // if n is equal to 1 return the first term 1
+    if (n == 1) {
+      return 1;
+    }
+    // if n is equal 2 1 return the second term 1
+    else if (n == 2) {
+      return 1;
+    }
+  
+    // else n is larger than two, return the sum of the previous two terms
+    else 
+    return this.memoizedFibonacci(n - 1) + this.memoizedFibonacci(n - 2);
+  });
+
   ngOnInit() {
     // Normal function
     console.log("Normal function");
@@ -73,6 +110,15 @@ export class AppComponent implements OnInit {
     console.time("Third call");
     console.log(this.memoizedSquare(9467));
     console.timeEnd("Third call");
+
+    // Recursive functions
+    console.time("Normal Fibonacci function");
+    console.log(this.fibonacci(40));
+    console.timeEnd("Normal Fibonacci function");
+
+    console.time("Memoized Fibonacci function");
+    console.log(this.memoizedFibonacci(40));
+    console.timeEnd("Memoized Fibonacci function");
   }
 
 }
