@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "memoized-functions"
+    }
+  },
+  "defaultProject": "memoized-functions",
+  "cli": {
+    "analytics": false
+  }
 }
